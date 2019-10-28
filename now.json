@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "name": "GestorAppBackend",
+  "build":{
+    "env":{
+      "mongo_server": "@mongo_server"
+    }
+  },
+  "builds": [
+    {
+      "src": "dist/main.js",
+      "use": "@now/node"
+      
+    }
+  ],
+  "env":{
+    "mongo_server": "@mongo_server"
+
+  },
+ 
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "dist/main.js"
+    }
+  ]
+
+}
