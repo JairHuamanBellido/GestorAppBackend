@@ -1,12 +1,22 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { RegisterModule } from './register/register.module';
+import { RegisterModule } from './controllers/register/register.module';
 import {  MongooseModule} from "@nestjs/mongoose";
-import { LoginModule } from './login/login.module';
-import { UsersModule } from './users/users.module';
-import { AuthModule } from './auth/auth.module';
+import { LoginModule } from './controllers/login/login.module';
+import { UsersModule } from './models/users/users.module';
+import { AuthModule } from './controllers/auth/auth.module';
 import {  config} from "dotenv";
+
+
+
+
+
+
+import { BillsModule } from './controllers/bills/bills.module';
+
+import { BillModule } from './models/bill/bill.module';
+
 config();
 console.log(process.env.mongo_server);
 @Module({
@@ -23,6 +33,12 @@ console.log(process.env.mongo_server);
         AuthModule,
         
         UsersModule,
+               
+        BillsModule,
+        
+        BillModule,
+        
+
     ],
     controllers: [AppController],
     providers: [AppService],

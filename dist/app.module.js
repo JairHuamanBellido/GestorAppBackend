@@ -9,12 +9,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
-const register_module_1 = require("./register/register.module");
+const register_module_1 = require("./controllers/register/register.module");
 const mongoose_1 = require("@nestjs/mongoose");
-const login_module_1 = require("./login/login.module");
-const users_module_1 = require("./users/users.module");
-const auth_module_1 = require("./auth/auth.module");
+const login_module_1 = require("./controllers/login/login.module");
+const users_module_1 = require("./models/users/users.module");
+const auth_module_1 = require("./controllers/auth/auth.module");
 const dotenv_1 = require("dotenv");
+const bills_module_1 = require("./controllers/bills/bills.module");
+const bill_module_1 = require("./models/bill/bill.module");
 dotenv_1.config();
 console.log(process.env.mongo_server);
 let AppModule = class AppModule {
@@ -30,6 +32,8 @@ AppModule = __decorate([
             login_module_1.LoginModule,
             auth_module_1.AuthModule,
             users_module_1.UsersModule,
+            bills_module_1.BillsModule,
+            bill_module_1.BillModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
