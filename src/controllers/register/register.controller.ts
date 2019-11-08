@@ -19,7 +19,7 @@ export class RegisterController {
     async createUser(
         @Res() res: Response,
         @Body() createUserDTO: CreateUserDTO,
-    ) {
+    ) { 
         const user = await this.registerService.createUser(createUserDTO);
         res.json(user);
     }

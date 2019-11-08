@@ -10,4 +10,8 @@ export interface Bill extends Document{
     readonly tax:number;
     readonly discountDate: string;
     readonly concept:string;
+    readonly releaseDateParse:string;
+    readonly payDayParse:string;
+    readonly discountDateParse:string;
+
 }

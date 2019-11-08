@@ -8,5 +8,8 @@ export const BillSchema =  new Schema({
      daysPerYear:Number,
      tax:Number,
      discountDate: String,
-     concept:String
+     concept:String,
+     releaseDateParse:String,
+     payDayParse:String,
+     discountDateParse:String
 })

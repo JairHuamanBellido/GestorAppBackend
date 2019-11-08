@@ -20,4 +20,9 @@ export class UsersService {
     async validateEmail(email:string):Promise<User> {
         return await this.userModel.findOne({email:email});
     }
+
+    async findByRuc(ruc:string):Promise<User>{
+        const found =  await this.userModel.findOne({ruc:ruc})
+        return found;
+    }
 }

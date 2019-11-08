@@ -10,8 +10,8 @@ export class BillsService {
         private readonly billService:BillService
     ){}
 
-    async create(billDTO:BillDTO):Promise<Bill>{
-        const bill =  await this.billService.create(billDTO);
-        return  bill;
+    async create(bill:Bill):Promise<Bill>{
+        const newBill =  await this.billService.create(bill);
+        return  newBill;
     }
 }
