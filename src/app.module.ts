@@ -18,7 +18,7 @@ import { BillsModule } from './controllers/bills/bills.module';
 import { BillModule } from './models/bill/bill.module';
 
 config();
-console.log(process.env.mongo_server);
+
 @Module({
     imports: [
         RegisterModule,

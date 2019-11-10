@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { BillService } from '../../models/bill/bill.service';
 import { BillDTO } from './dto/bill.dto';
 import { Bill } from '../../models/bill/interfaces/bill.interface';
+import { CreateBillDto } from './dto/create-bill.dto';
 
 @Injectable()
 export class BillsService {
@@ -10,8 +11,13 @@ export class BillsService {
         private readonly billService:BillService
     ){}
 
-    async create(bill:Bill):Promise<Bill>{
+    async create(bill:CreateBillDto):Promise<Bill>{
         const newBill =  await this.billService.create(bill);
         return  newBill;
     }
+
+    async findAll():Promise<Bill[]>{
+        return this.billService.findAll();
+    }
 }
+

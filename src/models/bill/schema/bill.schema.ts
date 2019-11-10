@@ -1,4 +1,5 @@
 import {  Schema} from "mongoose";
+
 export const BillSchema =  new Schema({
      userId:Number,
      companyId: Number,
@@ -11,5 +12,10 @@ export const BillSchema =  new Schema({
      concept:String,
      releaseDateParse:String,
      payDayParse:String,
-     discountDateParse:String
+     discountDateParse:String,
+     totalAmmountFinal:Number,
+     retention:Number,
+     discount:Number,
+     taxPeriod:String
+     
 })
