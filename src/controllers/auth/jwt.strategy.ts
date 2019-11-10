@@ -1,7 +1,7 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
-import { BillService } from 'src/models/bill/bill.service';
+import { BillService } from '../../../src/models/bill/bill.service';
 import {  config} from "dotenv";
 config();
 @Injectable()

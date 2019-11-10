@@ -3,7 +3,7 @@ import { AuthService } from './auth.service';
 import { UsersModule } from '../../models/users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
-import { BillModule } from 'src/models/bill/bill.module';
+import { BillModule } from '../../../src/models/bill/bill.module';
 import {  config} from "dotenv";
 config();
 @Module({

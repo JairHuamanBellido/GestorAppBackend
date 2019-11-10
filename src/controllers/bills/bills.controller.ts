@@ -2,11 +2,10 @@ import { Controller, Post, Res, Body, Get, UseGuards, Req } from '@nestjs/common
 import { Response } from 'express';
 import { BillDTO } from './dto/bill.dto';
 import { BillsService } from './bills.service';
-import { dayNumber } from '../../algorithm/DateAlgorithm';
-import { FinanceResults } from 'src/algorithm/FinanceAlgorithm';
+
+import { FinanceResults } from '../../../src/algorithm/FinanceAlgorithm';
 import { UsersService } from '../../models/users/users.service';
-import { User } from 'src/models/users/interface/user.interface';
-import { Bill } from 'src/models/bill/interfaces/bill.interface';
+
 import { CreateBillDto } from './dto/create-bill.dto';
 import { AuthGuard } from '@nestjs/passport';
 
