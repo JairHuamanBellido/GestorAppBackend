@@ -3,7 +3,8 @@
   "name": "GestorAppBackend",
   "build":{
     "env":{
-      "mongo_server": "@mongo_server"
+      "mongo_server": "@mongo_server",
+      "token_secret": "@token_secret"
     }
   },
   "builds": [
@@ -14,7 +15,8 @@
     }
   ],
   "env":{
-    "mongo_server": "@mongo_server"
+    "mongo_server": "@mongo_server",
+    "token_secret": "@token_secret"
 
   },
  

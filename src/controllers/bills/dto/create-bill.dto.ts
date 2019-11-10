@@ -1,6 +1,6 @@
 export interface CreateBillDto {
-    userId:number
-    companyId: number;
+    userRuc:string
+    companyRuc: string;
     releaseDate:string;
     payDay:string;
     totalAmount:number;

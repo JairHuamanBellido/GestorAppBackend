@@ -14,7 +14,7 @@ export class BillService {
         return newBill.save();
     }
 
-    async findAll(): Promise<Bill[]>{
-        return this.billModel.find({userId:1});
+    async findAllByRuc(ruc:string): Promise<Bill[]>{
+        return this.billModel.find({userRuc:ruc});
     }
 }

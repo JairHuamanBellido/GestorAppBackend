@@ -16,8 +16,8 @@ export class BillsService {
         return  newBill;
     }
 
-    async findAll():Promise<Bill[]>{
-        return this.billService.findAll();
+    async findAllByRuc(ruc:string):Promise<Bill[]>{
+        return this.billService.findAllByRuc(ruc);
     }
 }
 

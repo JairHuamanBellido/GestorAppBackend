@@ -1,8 +1,8 @@
 import {  Document} from "mongoose";
 
 export interface Bill extends Document{
-    readonly userId:number
-    readonly companyId: number;
+    readonly userRuc:string
+    readonly companyRuc: string;
     readonly releaseDate:string;
     readonly payDay:string;
     readonly totalAmount:number;

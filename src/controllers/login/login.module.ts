@@ -6,6 +6,7 @@ import { AuthModule } from '../auth/auth.module';
 @Module({
   controllers: [LoginController],
   providers: [LoginService],
-  imports:[AuthModule]
+  imports:[AuthModule],
+  
 })
 export class LoginModule {}

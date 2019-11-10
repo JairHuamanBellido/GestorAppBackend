@@ -1,4 +1,4 @@
-import { Controller, Post, Res, Body, Get } from '@nestjs/common';
+import { Controller, Post, Res, Body, Get, UseGuards, Req } from '@nestjs/common';
 import { Response } from 'express';
 import { BillDTO } from './dto/bill.dto';
 import { BillsService } from './bills.service';
@@ -8,6 +8,7 @@ import { UsersService } from '../../models/users/users.service';
 import { User } from 'src/models/users/interface/user.interface';
 import { Bill } from 'src/models/bill/interfaces/bill.interface';
 import { CreateBillDto } from './dto/create-bill.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('bills')
 export class BillsController {
@@ -16,11 +17,14 @@ export class BillsController {
         private userService: UsersService,
     ) {}
 
+    @UseGuards(AuthGuard('jwt'))
     @Get('/')
-    async findAll(@Res() res: Response) {
-        const response = await this.billsService.findAll();
-        console.log(response);
-        res.json(this.billsService.findAll());
+    async findAll(@Res() res: Response, @Req() req) {
+        
+        const response = await this.billsService.findAllByRuc(req.user.ruc);
+        
+        
+        res.json(response);
     }
 
     @Post('/')
@@ -39,8 +43,8 @@ export class BillsController {
         );
 
         let bill: CreateBillDto = {
-            userId: billDTO.userId,
-            companyId: billDTO.companyId,
+            userRuc: billDTO.userRuc,
+            companyRuc: billDTO.companyRuc,
             releaseDate: billDTO.releaseDate,
             payDay: billDTO.payDay,
             totalAmount: results.totalAmmount,

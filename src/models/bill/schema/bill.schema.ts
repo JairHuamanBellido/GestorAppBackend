@@ -1,8 +1,8 @@
 import {  Schema} from "mongoose";
 
 export const BillSchema =  new Schema({
-     userId:Number,
-     companyId: Number,
+     userRuc:String,
+     companyRuc: String,
      releaseDate:String,
      payDay:String,
      totalAmount:Number,
