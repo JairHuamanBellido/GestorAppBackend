@@ -8,5 +8,6 @@ export class CreateUserDTO{
     readonly email: string;
     readonly phone: number;
     readonly address: string;
-    readonly district: string
+    readonly district: string;
+    readonly companyName:string;
 }

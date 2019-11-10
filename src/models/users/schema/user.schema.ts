@@ -7,7 +7,7 @@ export const UserSchema = new Schema({
     username: String,
     password: String,
     age: Number,
-    
+    companyName:String,
     email: String,
     phone: Number,
     address: String,

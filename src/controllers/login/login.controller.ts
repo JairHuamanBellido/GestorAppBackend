@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Res } from '@nestjs/common';
+import { Controller, Post, Body, Res, HttpException, HttpStatus } from '@nestjs/common';
 import { UserAuthDTO } from './dto/user-auth';
 import { AuthService } from '../auth/auth.service';
 import { Response } from 'express';
@@ -11,7 +11,10 @@ export class LoginController {
     @Post("/")
     async authenticate(@Res() res:Response, @Body() userAuth:UserAuthDTO):Promise<any>{
         const user =  await this.authService.validateUser(userAuth.username,userAuth.password);
-        
+        if(user == null){
+            throw new HttpException('Invalidad Credentials', HttpStatus.NOT_FOUND);
+
+        }
         res.json(user);
     }
 }
