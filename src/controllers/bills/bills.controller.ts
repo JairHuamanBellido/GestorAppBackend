@@ -29,9 +29,7 @@ export class BillsController {
     @Post('/')
     async create(@Res() res: Response, @Body() billDTO: BillDTO) {
         //const bill =  await this.billsService.create(billDTO);
-        const user = await this.userService.findByRuc('123');
-
-        console.log(user);
+        
 
         let results = new FinanceResults(
             billDTO.totalAmount,
@@ -61,7 +59,7 @@ export class BillsController {
         };
 
         const response = await this.billsService.create(bill);
-        //console.log(results);
+        
 
         res.json(response);
     }

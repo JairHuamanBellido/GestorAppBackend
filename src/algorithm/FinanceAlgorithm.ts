@@ -31,21 +31,26 @@ export class FinanceResults {
     daysOfTaxDiscount = () => {
         const leftDays = dayNumber(this.payday) - dayNumber(this.discountDate);
 
-        this.daysTaxDiscount = leftDays - 1;
+        this.daysTaxDiscount = leftDays ;
+        console.log("dias descontados: "+ this.daysTaxDiscount);
     };
 
     taxPeriod = () => {
         this.tax= this.tax / 100;
         const TEP = Math.pow(1 + this.tax, this.daysTaxDiscount / 360) - 1;
         this.TEP = TEP;
+
+        console.log("tasa del periodo: "+ this.TEP);
     };
 
     taxDiscountPeriod = () => {
         this.taxDiscount = this.TEP / (1 + this.TEP);
+        console.log("tasa de descuento: "+  this.taxDiscount);
     };
 
     discountCalculate = () => {
-        this.discount = (this.totalAmmount * this.taxDiscount);
+        this.discount = parseFloat((this.totalAmmount * this.taxDiscount).toFixed(2));
+        
     };
 
     totalAmmountCalculate = () => {
