@@ -11,6 +11,7 @@ export class BillService {
 
     async create(bill: CreateBillDto): Promise<Bill> {
         const newBill = new this.billModel(bill);
+        
         return newBill.save();
     }
 

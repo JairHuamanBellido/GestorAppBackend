@@ -1,4 +1,5 @@
 import {  Document } from "mongoose";
+import { Bill } from "src/models/bill/interfaces/bill.interface";
 
 export interface User extends Document{
     readonly ruc: string;
@@ -13,4 +14,6 @@ export interface User extends Document{
     readonly address: string;
     readonly district: string;
     readonly companyName:string;
+
+    readonly bills :Bill[];
 }
