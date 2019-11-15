@@ -17,5 +17,6 @@ export interface Bill extends Document{
     readonly retention:number;
     readonly discount:number;
     readonly taxPeriod:string;
+    readonly tep:string;
 
 }

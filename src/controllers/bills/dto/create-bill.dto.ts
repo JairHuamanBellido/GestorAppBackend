@@ -15,5 +15,6 @@ export interface CreateBillDto {
     retention:number;
     discount:number;
     taxPeriod:string;
+    tep:string;
 
 }

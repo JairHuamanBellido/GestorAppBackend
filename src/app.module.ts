@@ -7,12 +7,11 @@ import { LoginModule } from './controllers/login/login.module';
 import { UsersModule } from './models/users/users.module';
 import { AuthModule } from './controllers/auth/auth.module';
 import { config } from 'dotenv';
-
 import { JwtModule, JwtService } from '@nestjs/jwt';
-
 import { BillsModule } from './controllers/bills/bills.module';
-
 import { BillModule } from './models/bill/bill.module';
+import { CompanyService } from './models/company/company.service';
+import { CompanyModule } from './models/company/company.module';
 
 config();
 
@@ -25,8 +24,6 @@ config();
             useUnifiedTopology: true,
         }),
 
-     
-
         LoginModule,
 
         AuthModule,
@@ -36,9 +33,10 @@ config();
         BillsModule,
 
         BillModule,
+
+        CompanyModule,
     ],
     controllers: [AppController],
     providers: [AppService],
-    
 })
 export class AppModule {}

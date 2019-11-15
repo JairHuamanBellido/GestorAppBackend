@@ -1,5 +1,18 @@
 import { dayNumber } from './DateAlgorithm';
 
+let TEP_DICCIONARY = {
+    "Diario":1,
+    "Quincenal":15,
+    "Mensual":30,
+    "Bimestral":60,
+    "Trimestral":90,
+    "Cuatrimestral":120,
+    "Semestral":180,
+    "Anual":360
+
+
+}
+
 export class FinanceResults {
     tax = null;
     taxDiscount = null;
@@ -13,8 +26,8 @@ export class FinanceResults {
     payday = null;
     discountDate = null;
     releaseDate = null;
-
-    constructor(totalAmmount, tea, payday, discountDay, releaseDate) {
+    tep = null;
+    constructor(totalAmmount, tea, payday, discountDay, releaseDate,tep) {
         this.tax = tea;
         this.releaseDate = releaseDate;
         this.totalAmmount = totalAmmount;
@@ -22,6 +35,7 @@ export class FinanceResults {
             this.retention = parseFloat((this.totalAmmount * 0.08).toFixed(2));
         }
         this.payday = payday;
+        this.tep = tep;
         this.discountDate = discountDay;
         this.daysOfTaxDiscount();
         this.taxPeriod();
@@ -39,7 +53,7 @@ export class FinanceResults {
 
     taxPeriod = () => {
         this.tax = this.tax / 100;
-        const TEP = Math.pow(1 + this.tax, this.daysTaxDiscount / 360) - 1;
+        const TEP = Math.pow(1 + this.tax, this.daysTaxDiscount / TEP_DICCIONARY[this.tep]) - 1;
         this.TEP = TEP;
 
         console.log('tasa del periodo: ' + this.TEP);
@@ -69,7 +83,7 @@ export class FinanceResults {
         let tcea =
             Math.pow(
                 valorRecibido / valorEntregadio,
-                360 / this.daysTaxDiscount,
+                TEP_DICCIONARY[this.tep] / this.daysTaxDiscount,
             ) - 1;
 
         this.TCEA = tcea;

@@ -1,6 +1,7 @@
 import { Schema } from 'mongoose';
 import { BillSchema } from 'src/models/bill/schema/bill.schema';
 import { Bill } from 'src/models/bill/interfaces/bill.interface';
+import { CompanySchema } from 'src/models/company/schema/company.schema';
 
 export const UserSchema = new Schema({
     ruc: String,
@@ -14,5 +15,6 @@ export const UserSchema = new Schema({
     phone: Number,
     address: String,
     district: String,
-    bills:[BillSchema]
+    bills:[BillSchema],
+    companies:[CompanySchema]
 });

@@ -8,6 +8,10 @@ export class BillDTO{
     readonly tax:number;
     readonly discountDate: string;
     readonly concept:string;
+    readonly tep:string;
+    readonly nameCompany:string;
+    readonly addressCompany:string;
+    readonly districtCompany:string;
 }
 
 

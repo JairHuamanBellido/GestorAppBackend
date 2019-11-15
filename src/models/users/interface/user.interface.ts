@@ -1,5 +1,6 @@
 import {  Document } from "mongoose";
 import { Bill } from "src/models/bill/interfaces/bill.interface";
+import { Company } from "src/models/company/interfaces/company.interface";
 
 export interface User extends Document{
     readonly ruc: string;
@@ -16,4 +17,5 @@ export interface User extends Document{
     readonly companyName:string;
 
     readonly bills :Bill[];
+    readonly Companies:Company[];
 }

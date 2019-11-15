@@ -8,12 +8,16 @@ import { UsersService } from '../../models/users/users.service';
 
 import { CreateBillDto } from './dto/create-bill.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { Company } from 'src/models/company/interfaces/company.interface';
+import { CreateCompanyDto } from './dto/create-company.dto';
+import { CompanyService } from 'src/models/company/company.service';
 
 @Controller('bills')
 export class BillsController {
     constructor(
         private billsService: BillsService,
         private userService: UsersService,
+        private companyService:CompanyService
     ) {}
 
     @UseGuards(AuthGuard('jwt'))
@@ -37,6 +41,7 @@ export class BillsController {
             billDTO.payDay,
             billDTO.discountDate,
             billDTO.releaseDate,
+            billDTO.tep
         );
 
         let bill: CreateBillDto = {
@@ -56,12 +61,21 @@ export class BillsController {
             retention: results.retention,
             discount: results.discount,
             taxPeriod: 'TEA',
+            tep:billDTO.tep
         };
 
+
+        let newCompany:CreateCompanyDto = {
+            ruc: billDTO.companyRuc,
+            name: billDTO.nameCompany,
+            address: billDTO.addressCompany,
+            district: billDTO.districtCompany
+        }
         const response = await this.billsService.create(bill);
-        
+        const responseCompany = await this.companyService.create(newCompany);
 
         user.bills.push(response);
+        user.Companies.push(responseCompany);
         
         this.userService.updateUser(user);
 
