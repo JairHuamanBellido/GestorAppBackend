@@ -17,5 +17,5 @@ export interface User extends Document{
     readonly companyName:string;
 
     readonly bills :Bill[];
-    readonly Companies:Company[];
+    readonly companies:Company[];
 }

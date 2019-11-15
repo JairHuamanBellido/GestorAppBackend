@@ -25,6 +25,7 @@ export class UsersService {
 
     async findByRuc(ruc: string): Promise<User> {
         const found = await this.userModel.findOne({ ruc: ruc });
+        console.log(found.companies);
         return found;
     }
 

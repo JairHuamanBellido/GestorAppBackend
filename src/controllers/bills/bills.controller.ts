@@ -35,6 +35,7 @@ export class BillsController {
         //const bill =  await this.billsService.create(billDTO);
         const user =  await this.userService.findByRuc(billDTO.userRuc);
 
+        console.log(billDTO);
         let results = new FinanceResults(
             billDTO.totalAmount,
             billDTO.tax,
@@ -73,9 +74,9 @@ export class BillsController {
         }
         const response = await this.billsService.create(bill);
         const responseCompany = await this.companyService.create(newCompany);
-
+        console.log(responseCompany);
         user.bills.push(response);
-        user.Companies.push(responseCompany);
+        user.companies.push(responseCompany);
         
         this.userService.updateUser(user);
 
