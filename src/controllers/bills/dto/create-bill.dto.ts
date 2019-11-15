@@ -1,3 +1,5 @@
+import { Company } from "src/models/company/interfaces/company.interface";
+
 export interface CreateBillDto {
     userRuc:string
     companyRuc: string;
@@ -16,5 +18,6 @@ export interface CreateBillDto {
     discount:number;
     taxPeriod:string;
     tep:string;
+    company:Company
 
 }

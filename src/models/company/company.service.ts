@@ -18,6 +18,16 @@ export class CompanyService {
         return newCompany.save();
     }
 
+    async findByRuc(ruc:string): Promise<any>{
+        const found =  await this.companyModel.findOne({ruc:ruc});
+        if(found === null){
+            return false;
+        }
+        else{
+            return found;
+        }
+    }
+
 
 
 }

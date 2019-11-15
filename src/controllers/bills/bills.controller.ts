@@ -1,4 +1,12 @@
-import { Controller, Post, Res, Body, Get, UseGuards, Req } from '@nestjs/common';
+import {
+    Controller,
+    Post,
+    Res,
+    Body,
+    Get,
+    UseGuards,
+    Req,
+} from '@nestjs/common';
 import { Response } from 'express';
 import { BillDTO } from './dto/bill.dto';
 import { BillsService } from './bills.service';
@@ -17,33 +25,52 @@ export class BillsController {
     constructor(
         private billsService: BillsService,
         private userService: UsersService,
-        private companyService:CompanyService
+        private companyService: CompanyService,
     ) {}
 
     @UseGuards(AuthGuard('jwt'))
     @Get('/')
     async findAll(@Res() res: Response, @Req() req) {
-        
         const response = await this.billsService.findAllByRuc(req.user.ruc);
-        
-        
+
         res.json(response);
     }
 
     @Post('/')
     async create(@Res() res: Response, @Body() billDTO: BillDTO) {
         //const bill =  await this.billsService.create(billDTO);
-        const user =  await this.userService.findByRuc(billDTO.userRuc);
+        const user = await this.userService.findByRuc(billDTO.userRuc);
 
-        console.log(billDTO);
+        let companySelect;
+
+
+        let newCompany: CreateCompanyDto = {
+            ruc: billDTO.companyRuc,
+            name: billDTO.nameCompany,
+            address: billDTO.addressCompany,
+            district: billDTO.districtCompany,
+        };
         let results = new FinanceResults(
             billDTO.totalAmount,
             billDTO.tax,
             billDTO.payDay,
             billDTO.discountDate,
             billDTO.releaseDate,
-            billDTO.tep
+            billDTO.tep,
         );
+
+        const foundCompany = await this.companyService.findByRuc(
+            billDTO.companyRuc,
+        );
+
+        if (foundCompany === false) {
+            const responseCompany = await this.companyService.create(newCompany);
+            companySelect = responseCompany;
+            user.companies.push(companySelect);
+        } else {
+            companySelect =  foundCompany;
+        }
+        console.log(foundCompany);
 
         let bill: CreateBillDto = {
             userRuc: billDTO.userRuc,
@@ -62,27 +89,15 @@ export class BillsController {
             retention: results.retention,
             discount: results.discount,
             taxPeriod: 'TEA',
-            tep:billDTO.tep
+            tep: billDTO.tep,
+            company: companySelect,
         };
 
-
-        let newCompany:CreateCompanyDto = {
-            ruc: billDTO.companyRuc,
-            name: billDTO.nameCompany,
-            address: billDTO.addressCompany,
-            district: billDTO.districtCompany
-        }
         const response = await this.billsService.create(bill);
-        const responseCompany = await this.companyService.create(newCompany);
-        console.log(responseCompany);
+
         user.bills.push(response);
-        user.companies.push(responseCompany);
-        
+
         this.userService.updateUser(user);
-
-        
-
-        
 
         res.json(response);
     }

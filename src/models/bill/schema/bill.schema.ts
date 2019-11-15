@@ -1,4 +1,5 @@
 import {  Schema} from "mongoose";
+import { CompanySchema } from "src/models/company/schema/company.schema";
 
 export const BillSchema =  new Schema({
      userRuc:String,
@@ -17,6 +18,7 @@ export const BillSchema =  new Schema({
      retention:Number,
      discount:Number,
      taxPeriod:String,
-     tep :String
+     tep :String,
+     company:CompanySchema
      
 })
