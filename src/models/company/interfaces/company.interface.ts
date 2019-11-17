@@ -5,5 +5,6 @@ export interface Company extends Document{
     readonly name:string;
     readonly address:string;
     readonly district:string;
+    readonly avatarIcon:string;
     
 }

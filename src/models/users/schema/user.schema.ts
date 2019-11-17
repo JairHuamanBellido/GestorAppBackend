@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
-import { BillSchema } from 'src/models/bill/schema/bill.schema';
-import { Bill } from 'src/models/bill/interfaces/bill.interface';
+import { BillSchema } from '../../../models/bill/schema/bill.schema';
+
 import { CompanySchema } from 'src/models/company/schema/company.schema';
 
 export const UserSchema = new Schema({

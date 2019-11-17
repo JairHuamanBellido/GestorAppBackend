@@ -16,24 +16,19 @@ import { UsersService } from '../../models/users/users.service';
 
 import { CreateBillDto } from './dto/create-bill.dto';
 import { AuthGuard } from '@nestjs/passport';
-import { Company } from 'src/models/company/interfaces/company.interface';
+
 import { CreateCompanyDto } from './dto/create-company.dto';
-import { CompanyService } from 'src/models/company/company.service';
-
-
+import { CompanyService } from '../../models/company/company.service';
 
 const DICCIONARY_NOMINAL = {
-
-    "Diario": 1,
-    "Quincenal": 15,
-    "Mensual": 30,
-    "Bimestral": 60,
-    "Trimestral": 90,
-    "Cuatrimestral": 120,
-    "Semestral": 180,
-}
-
-
+    Diario: 1,
+    Quincenal: 15,
+    Mensual: 30,
+    Bimestral: 60,
+    Trimestral: 90,
+    Cuatrimestral: 120,
+    Semestral: 180,
+};
 
 @Controller('bills')
 export class BillsController {
@@ -58,24 +53,30 @@ export class BillsController {
 
         let companySelect;
         let alternate = billDTO.tax;
-        let TasaPeriodo =  billDTO.tep;
+        let TasaPeriodo = billDTO.tep;
 
         console.log(billDTO.typeTax);
-        if(billDTO.typeTax ===  "Nominal"){
-            let a = (1 + (billDTO.tax / 100) / (DICCIONARY_NOMINAL[billDTO.tep] / DICCIONARY_NOMINAL[billDTO.valueP]));
-            let tea = (Math.pow(a, 360 / DICCIONARY_NOMINAL[billDTO.valueP]) - 1) * 100;
-            alternate =  tea;
-            console.log("asd");
-            TasaPeriodo = "Anual"
+        if (billDTO.typeTax === 'Nominal') {
+            let a =
+                1 +
+                billDTO.tax /
+                    100 /
+                    (DICCIONARY_NOMINAL[billDTO.tep] /
+                        DICCIONARY_NOMINAL[billDTO.valueP]);
+            let tea =
+                (Math.pow(a, 360 / DICCIONARY_NOMINAL[billDTO.valueP]) - 1) *
+                100;
+            alternate = tea;
+            console.log('asd');
+            TasaPeriodo = 'Anual';
         }
-        
 
         let newCompany: CreateCompanyDto = {
             ruc: billDTO.companyRuc,
             name: billDTO.nameCompany,
             address: billDTO.addressCompany,
             district: billDTO.districtCompany,
-            
+            avatarIcon:billDTO.avatarIcon
         };
         let results = new FinanceResults(
             billDTO.totalAmount,
@@ -83,8 +84,7 @@ export class BillsController {
             billDTO.payDay,
             billDTO.discountDate,
             billDTO.releaseDate,
-            TasaPeriodo
-            
+            TasaPeriodo,
         );
 
         const foundCompany = await this.companyService.findByRuc(
@@ -92,11 +92,13 @@ export class BillsController {
         );
         console.log(foundCompany);
         if (foundCompany === false) {
-            const responseCompany = await this.companyService.create(newCompany);
+            const responseCompany = await this.companyService.create(
+                newCompany,
+            );
             companySelect = responseCompany;
             user.companies.push(companySelect);
         } else {
-            companySelect =  foundCompany;
+            companySelect = foundCompany;
         }
 
         let bill: CreateBillDto = {
@@ -108,7 +110,7 @@ export class BillsController {
             daysPerYear: billDTO.daysPerYear,
             tax: billDTO.tax,
             discountDate: billDTO.discountDate,
-            concept: billDTO.concept,  
+            concept: billDTO.concept,
             releaseDateParse: 'string',
             payDayParse: 'string',
             discountDateParse: 'string',
@@ -118,7 +120,8 @@ export class BillsController {
             taxPeriod: 'TEA',
             tep: billDTO.tep,
             company: companySelect,
-            tcea:results.TCEA
+            tcea: results.TCEA,
+            avatarIcon: billDTO.avatarIcon,
         };
 
         const response = await this.billsService.create(bill);

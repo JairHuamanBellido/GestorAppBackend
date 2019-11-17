@@ -4,5 +4,6 @@ export const CompanySchema =  new Schema({
     ruc:String,
     name:String,
     address:String,
-    district:String
+    district:String,
+    avatarIcon:String
 })

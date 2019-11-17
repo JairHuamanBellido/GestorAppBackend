@@ -4,7 +4,7 @@ import { BillsController } from './bills.controller';
 import { BillModule } from '../../models/bill/bill.module';
 import { UsersService } from '../../../src/models/users/users.service';
 import { UsersModule } from '../../../src/models/users/users.module';
-import { CompanyModule } from 'src/models/company/company.module';
+import { CompanyModule } from '../../models/company/company.module';
 
 @Module({
   providers: [BillsService],

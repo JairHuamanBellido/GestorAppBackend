@@ -1,4 +1,4 @@
-import { Company } from "src/models/company/interfaces/company.interface";
+import { Company } from "../../../models/company/interfaces/company.interface";
 
 export interface CreateBillDto {
     userRuc:string
@@ -20,4 +20,5 @@ export interface CreateBillDto {
     tep:string;
     company:Company;
     tcea:Number;
+    avatarIcon:string;
 }

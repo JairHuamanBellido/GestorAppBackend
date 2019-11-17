@@ -1,5 +1,5 @@
 import {  Document} from "mongoose";
-import { Company } from "src/models/company/interfaces/company.interface";
+import { Company } from "../../../models/company/interfaces/company.interface";
 
 export interface Bill extends Document{
     readonly userRuc:string
@@ -21,5 +21,6 @@ export interface Bill extends Document{
     readonly tep:string;
     readonly company:Company;
     readonly tcea:Number;
+    readonly avatarIcon:string;
 
 }

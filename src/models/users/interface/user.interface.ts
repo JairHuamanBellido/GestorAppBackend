@@ -1,6 +1,6 @@
 import {  Document } from "mongoose";
-import { Bill } from "src/models/bill/interfaces/bill.interface";
-import { Company } from "src/models/company/interfaces/company.interface";
+import { Bill } from "../../../models/bill/interfaces/bill.interface";
+import { Company } from "../../../models/company/interfaces/company.interface";
 
 export interface User extends Document{
     readonly ruc: string;

@@ -14,6 +14,7 @@ export class BillDTO{
     readonly districtCompany:string;
     readonly typeTax:string;
     readonly valueP:number;
+    readonly avatarIcon:string
 }
 
 
