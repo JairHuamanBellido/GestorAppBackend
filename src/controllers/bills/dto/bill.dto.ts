@@ -12,6 +12,8 @@ export class BillDTO{
     readonly nameCompany:string;
     readonly addressCompany:string;
     readonly districtCompany:string;
+    readonly typeTax:string;
+    readonly valueP:number;
 }
 
 

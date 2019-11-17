@@ -18,6 +18,6 @@ export interface CreateBillDto {
     discount:number;
     taxPeriod:string;
     tep:string;
-    company:Company
-
+    company:Company;
+    tcea:Number;
 }

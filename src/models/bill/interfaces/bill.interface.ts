@@ -20,5 +20,6 @@ export interface Bill extends Document{
     readonly taxPeriod:string;
     readonly tep:string;
     readonly company:Company;
+    readonly tcea:Number;
 
 }

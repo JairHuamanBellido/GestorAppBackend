@@ -19,6 +19,7 @@ export const BillSchema =  new Schema({
      discount:Number,
      taxPeriod:String,
      tep :String,
-     company:CompanySchema
+     company:CompanySchema,
+     tcea:Number
      
 })

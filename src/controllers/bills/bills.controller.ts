@@ -20,6 +20,21 @@ import { Company } from 'src/models/company/interfaces/company.interface';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { CompanyService } from 'src/models/company/company.service';
 
+
+
+const DICCIONARY_NOMINAL = {
+
+    "Diario": 1,
+    "Quincenal": 15,
+    "Mensual": 30,
+    "Bimestral": 60,
+    "Trimestral": 90,
+    "Cuatrimestral": 120,
+    "Semestral": 180,
+}
+
+
+
 @Controller('bills')
 export class BillsController {
     constructor(
@@ -42,27 +57,40 @@ export class BillsController {
         const user = await this.userService.findByRuc(billDTO.userRuc);
 
         let companySelect;
+        let alternate = billDTO.tax;
+        let TasaPeriodo =  billDTO.tep;
 
+        console.log(billDTO.typeTax);
+        if(billDTO.typeTax ===  "Nominal"){
+            let a = (1 + (billDTO.tax / 100) / (DICCIONARY_NOMINAL[billDTO.tep] / DICCIONARY_NOMINAL[billDTO.valueP]));
+            let tea = (Math.pow(a, 360 / DICCIONARY_NOMINAL[billDTO.valueP]) - 1) * 100;
+            alternate =  tea;
+            console.log("asd");
+            TasaPeriodo = "Anual"
+        }
+        
 
         let newCompany: CreateCompanyDto = {
             ruc: billDTO.companyRuc,
             name: billDTO.nameCompany,
             address: billDTO.addressCompany,
             district: billDTO.districtCompany,
+            
         };
         let results = new FinanceResults(
             billDTO.totalAmount,
-            billDTO.tax,
+            alternate,
             billDTO.payDay,
             billDTO.discountDate,
             billDTO.releaseDate,
-            billDTO.tep,
+            TasaPeriodo
+            
         );
 
         const foundCompany = await this.companyService.findByRuc(
             billDTO.companyRuc,
         );
-
+        console.log(foundCompany);
         if (foundCompany === false) {
             const responseCompany = await this.companyService.create(newCompany);
             companySelect = responseCompany;
@@ -70,7 +98,6 @@ export class BillsController {
         } else {
             companySelect =  foundCompany;
         }
-        console.log(foundCompany);
 
         let bill: CreateBillDto = {
             userRuc: billDTO.userRuc,
@@ -81,7 +108,7 @@ export class BillsController {
             daysPerYear: billDTO.daysPerYear,
             tax: billDTO.tax,
             discountDate: billDTO.discountDate,
-            concept: billDTO.concept,
+            concept: billDTO.concept,  
             releaseDateParse: 'string',
             payDayParse: 'string',
             discountDateParse: 'string',
@@ -91,6 +118,7 @@ export class BillsController {
             taxPeriod: 'TEA',
             tep: billDTO.tep,
             company: companySelect,
+            tcea:results.TCEA
         };
 
         const response = await this.billsService.create(bill);
