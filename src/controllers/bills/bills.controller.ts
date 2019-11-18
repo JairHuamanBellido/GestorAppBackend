@@ -21,13 +21,14 @@ import { CreateCompanyDto } from './dto/create-company.dto';
 import { CompanyService } from '../../models/company/company.service';
 
 const DICCIONARY_NOMINAL = {
-    Diario: 1,
-    Quincenal: 15,
-    Mensual: 30,
-    Bimestral: 60,
-    Trimestral: 90,
-    Cuatrimestral: 120,
-    Semestral: 180,
+    "Diario": 1,
+    "Quincenal": 15,
+    "Mensual": 30,
+    "Bimestral": 60,
+    "Trimestral": 90,
+    "Cuatrimestral": 120,
+    "Semestral": 180,
+    "Anual": 360
 };
 
 @Controller('bills')
@@ -46,6 +47,7 @@ export class BillsController {
         res.json(response);
     }
 
+    
     @Post('/')
     async create(@Res() res: Response, @Body() billDTO: BillDTO) {
         //const bill =  await this.billsService.create(billDTO);
@@ -54,20 +56,17 @@ export class BillsController {
         let companySelect;
         let alternate = billDTO.tax;
         let TasaPeriodo = billDTO.tep;
-
+        console.log(billDTO);
         console.log(billDTO.typeTax);
         if (billDTO.typeTax === 'Nominal') {
-            let a =
-                1 +
-                billDTO.tax /
-                    100 /
-                    (DICCIONARY_NOMINAL[billDTO.tep] /
-                        DICCIONARY_NOMINAL[billDTO.valueP]);
-            let tea =
-                (Math.pow(a, 360 / DICCIONARY_NOMINAL[billDTO.valueP]) - 1) *
-                100;
+            console.log("tax: "+ billDTO.tax);
+            console.log("tep: " + billDTO.tep);
+            
+            let a =1 +billDTO.tax /100 /(DICCIONARY_NOMINAL[billDTO.tep] /DICCIONARY_NOMINAL[billDTO.valueP]);
+            let tea = (Math.pow(a, 360 / DICCIONARY_NOMINAL[billDTO.valueP]) -1 )* 100
+            console.log("Tea: " +tea);
             alternate = tea;
-            console.log('asd');
+            
             TasaPeriodo = 'Anual';
         }
 
@@ -76,10 +75,10 @@ export class BillsController {
             name: billDTO.nameCompany,
             address: billDTO.addressCompany,
             district: billDTO.districtCompany,
-            avatarIcon:billDTO.avatarIcon
+            avatarIcon: billDTO.avatarIcon,
         };
         let results = new FinanceResults(
-            billDTO.totalAmount,
+            billDTO.totalAmount* 1.0,
             alternate,
             billDTO.payDay,
             billDTO.discountDate,

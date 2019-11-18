@@ -52,7 +52,8 @@ export class FinanceResults {
     };
 
     taxPeriod = () => {
-        console.log(this.tax);
+        
+        
         this.tax = this.tax / 100;
         const TEP = Math.pow(1 + this.tax, this.daysTaxDiscount / TEP_DICCIONARY[this.tep]) - 1;
         this.TEP = TEP;
@@ -62,7 +63,7 @@ export class FinanceResults {
 
     taxDiscountPeriod = () => {
         this.taxDiscount = this.TEP / (1 + this.TEP);
-        console.log('tasa de descuento: ' + this.taxDiscount);
+        console.log('tasa de descuento: ' + this.taxDiscount* 100);
     };
 
     discountCalculate = () => {
